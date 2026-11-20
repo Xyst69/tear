@@ -42,6 +42,7 @@ foreach ($ext in $extensions) {
     New-Item -Force $menu | Out-Null
     Set-ItemProperty $menu -Name 'MUIVerb' -Value 'Tear'
     Set-ItemProperty $menu -Name 'SubCommands' -Value ''
+    Set-ItemProperty $menu -Name 'Icon' -Value "`"$tearw`",0"
     foreach ($item in $items) {
         $verb = "$menu\shell\$($item.Key)"
         New-Item -Force "$verb\command" | Out-Null

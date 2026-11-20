@@ -7,6 +7,7 @@ use std::process::Command;
 fn main() {
     println!("cargo:rerun-if-changed=windows/tear.rc");
     println!("cargo:rerun-if-changed=windows/tear.manifest");
+    println!("cargo:rerun-if-changed=windows/tear.ico");
     if env::var("CARGO_CFG_TARGET_OS").as_deref() != Ok("windows") {
         return;
     }
@@ -31,6 +32,7 @@ fn main() {
             );
             println!("cargo:rustc-link-arg-bins={}", object.display());
         }
+        // Embeds the manifest only; the icon needs rc.exe, used by release builds via the GNU path.
         Ok("msvc") => {
             println!("cargo:rustc-link-arg-bins=/MANIFEST:EMBED");
             println!(

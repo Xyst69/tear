@@ -1,2 +1,4 @@
+// The first icon is the program icon; the context menu uses it too.
+1 ICON "tear.ico"
 // 1 = CREATEPROCESS_MANIFEST_RESOURCE_ID, 24 = RT_MANIFEST
 1 24 "tear.manifest"
