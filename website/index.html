@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>tear: unpack anything from the right-click menu</title>
+  <meta name="description" content="tear extracts and creates zip, 7z, rar and tar archives straight from the right-click menu on Windows, macOS and Linux. Fast, free and quiet.">
+  <meta name="theme-color" content="#EEF0F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#13181E" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#download">Skip to downloads</a>
+
+  <header class="site-header">
+    <a class="wordmark" href="./" aria-label="tear home">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <rect class="mark-strip" x="5" y="2.5" width="22" height="5" rx="1.5" transform="rotate(-9 16 5)"/>
+        <path class="mark-body" d="M4 13 l4 -3 l4 3 l4 -3 l4 3 l4 -3 l4 3 V27.5 a2.5 2.5 0 0 1 -2.5 2.5 H6.5 A2.5 2.5 0 0 1 4 27.5 Z"/>
+      </svg>
+      <span>tear</span>
+    </a>
+    <nav aria-label="Main">
+      <a href="#formats">Formats</a>
+      <a href="#download">Download</a>
+      <a href="https://github.com/Xyst69/tear">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>Unpack anything from the right&#8209;click menu.</h1>
+        <p class="lede">tear opens and creates zip, 7z, rar and tar archives on Windows, macOS and Linux. It uses every core, writes files in parallel, and then gets out of your way.</p>
+        <div class="actions">
+          <a class="btn btn-primary" id="primary-download" href="#download">Choose a download</a>
+          <a class="btn btn-quiet" id="other-platforms" href="#download">Other platforms</a>
+        </div>
+        <p class="primary-meta" id="primary-meta">Free and open source.</p>
+      </div>
+
+      <figure class="demo" id="demo">
+        <div class="stage-wrap" id="stage-wrap">
+          <div class="stage" id="stage" aria-hidden="true">
+            <div class="file zip">
+              <svg viewBox="0 0 56 64" class="icon">
+                <path class="zip-body" d="M4 18 L10 14 L16 18 L22 14 L28 18 L34 14 L40 18 L46 14 L52 18 V58 a4 4 0 0 1 -4 4 H8 a4 4 0 0 1 -4 -4 Z"/>
+                <g class="zip-teeth">
+                  <rect x="25" y="24" width="6" height="4" rx="1"/>
+                  <rect x="25" y="31" width="6" height="4" rx="1"/>
+                  <rect x="25" y="38" width="6" height="4" rx="1"/>
+                  <rect x="23" y="45" width="10" height="10" rx="2"/>
+                </g>
+                <g class="zip-strip">
+                  <path d="M4 6 a4 4 0 0 1 4 -4 H48 a4 4 0 0 1 4 4 V14 L46 18 L40 14 L34 18 L28 14 L22 18 L16 14 L10 18 L4 14 Z"/>
+                </g>
+              </svg>
+              <span class="file-name">holiday-photos.zip</span>
+            </div>
+
+            <div class="file folder">
+              <svg viewBox="0 0 64 56" class="icon">
+                <path class="folder-back" d="M2 10 a4 4 0 0 1 4 -4 H22 l6 6 H58 a4 4 0 0 1 4 4 V48 a4 4 0 0 1 -4 4 H6 a4 4 0 0 1 -4 -4 Z"/>
+                <path class="folder-front" d="M2 20 a4 4 0 0 1 4 -4 H58 a4 4 0 0 1 4 4 V48 a4 4 0 0 1 -4 4 H6 a4 4 0 0 1 -4 -4 Z"/>
+              </svg>
+              <span class="file-name">holiday-photos</span>
+            </div>
+
+            <div class="menu menu-main">
+              <div class="item">Open</div>
+              <div class="item has-sub">Open with</div>
+              <div class="sep"></div>
+              <div class="item has-sub item-tear">
+                <svg viewBox="0 0 32 32" class="item-icon">
+                  <rect class="mark-strip" x="5" y="2.5" width="22" height="5" rx="1.5" transform="rotate(-9 16 5)"/>
+                  <path class="mark-body" d="M4 13 l4 -3 l4 3 l4 -3 l4 3 l4 -3 l4 3 V27.5 a2.5 2.5 0 0 1 -2.5 2.5 H6.5 A2.5 2.5 0 0 1 4 27.5 Z"/>
+                </svg>
+                tear
+              </div>
+              <div class="sep"></div>
+              <div class="item">Copy</div>
+              <div class="item">Rename</div>
+              <div class="item">Delete</div>
+            </div>
+
+            <div class="menu menu-sub">
+              <div class="item item-extract">Extract here</div>
+              <div class="item">Extract to "holiday-photos\"</div>
+              <div class="item">Open in tear</div>
+              <div class="item">Test archive</div>
+            </div>
+
+            <svg class="cursor" viewBox="0 0 16 22">
+              <path d="M1 1 V17.5 L5.2 13.6 L8 20.2 L10.8 19 L8.1 12.6 H13.8 Z"/>
+            </svg>
+
+            <p class="result">312 files extracted in 2.1 s</p>
+          </div>
+        </div>
+        <figcaption>
+          <span>Right-click, choose <strong>tear</strong>, then <strong>Extract here</strong>.</span>
+          <button class="replay" id="replay" type="button" hidden>Replay</button>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="traits" aria-labelledby="traits-title">
+      <h2 id="traits-title">Fast, and otherwise invisible</h2>
+      <dl>
+        <div>
+          <dt>Extract here does the right thing</dt>
+          <dd>If the archive holds a single folder, you get that folder. If it holds loose files, they go into a new folder named after the archive. No more desktops full of stray files.</dd>
+        </div>
+        <div>
+          <dt>Uses every core</dt>
+          <dd>Zip and 7z entries are unpacked in parallel and files are written on background threads, so archives with thousands of small files finish in a fraction of the usual time.</dd>
+        </div>
+        <div>
+          <dt>Stays out of the way</dt>
+          <dd>No tray icon, no update pop-ups, no ads, no telemetry. A progress window appears only when a job takes longer than half a second.</dd>
+        </div>
+        <div>
+          <dt>Same menu on every system</dt>
+          <dd>Explorer on Windows 10 and 11, Finder on macOS, and Nautilus, Dolphin, Nemo, Thunar and Caja on Linux.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="formats" id="formats" aria-labelledby="formats-title">
+      <h2 id="formats-title">Formats</h2>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th scope="col">Format</th><th scope="col">Extract</th><th scope="col">Create</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">zip</th><td class="yes">Yes</td><td class="yes">Yes, with AES-256</td></tr>
+            <tr><th scope="row">7z</th><td class="yes">Yes</td><td class="yes">Yes, with AES-256</td></tr>
+            <tr><th scope="row">rar</th><td class="yes">Yes</td><td class="no">No</td></tr>
+            <tr><th scope="row">tar, tar.gz, tar.xz, tar.zst, tar.bz2</th><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+            <tr><th scope="row">gz, xz, zst, bz2</th><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="download" id="download" aria-labelledby="download-title">
+      <div class="stub">
+        <div class="stub-head">
+          <h2 id="download-title">Download tear</h2>
+          <p class="release-status" id="release-status" aria-live="polite">Latest release from GitHub.</p>
+        </div>
+
+        <div class="platforms">
+          <div class="platform" data-os="windows">
+            <h3>Windows</h3>
+            <p class="req">Windows 10 and 11</p>
+            <ul>
+              <li><a data-asset="tear-windows-x64.msi" href="https://github.com/Xyst69/tear/releases/latest/download/tear-windows-x64.msi"><span>Installer, x64</span><span class="size"></span></a></li>
+              <li><a data-asset="tear-windows-arm64.msi" href="https://github.com/Xyst69/tear/releases/latest/download/tear-windows-arm64.msi"><span>Installer, ARM64</span><span class="size"></span></a></li>
+            </ul>
+          </div>
+          <div class="platform" data-os="macos">
+            <h3>macOS</h3>
+            <p class="req">macOS 13 or later</p>
+            <ul>
+              <li><a data-asset="tear-macos-universal.dmg" href="https://github.com/Xyst69/tear/releases/latest/download/tear-macos-universal.dmg"><span>Disk image, Apple silicon and Intel</span><span class="size"></span></a></li>
+            </ul>
+          </div>
+          <div class="platform" data-os="linux">
+            <h3>Linux</h3>
+            <p class="req">x64 and ARM64</p>
+            <ul>
+              <li><a data-asset="tear-linux-x64.deb" href="https://github.com/Xyst69/tear/releases/latest/download/tear-linux-x64.deb"><span>.deb for Debian and Ubuntu, x64</span><span class="size"></span></a></li>
+              <li><a data-asset="tear-linux-x64.rpm" href="https://github.com/Xyst69/tear/releases/latest/download/tear-linux-x64.rpm"><span>.rpm for Fedora and openSUSE, x64</span><span class="size"></span></a></li>
+              <li><a data-asset="tear-linux-x64.AppImage" href="https://github.com/Xyst69/tear/releases/latest/download/tear-linux-x64.AppImage"><span>AppImage, x64</span><span class="size"></span></a></li>
+              <li><a data-asset="tear-linux-arm64.deb" href="https://github.com/Xyst69/tear/releases/latest/download/tear-linux-arm64.deb"><span>.deb, ARM64</span><span class="size"></span></a></li>
+              <li><a data-asset="tear-linux-arm64.rpm" href="https://github.com/Xyst69/tear/releases/latest/download/tear-linux-arm64.rpm"><span>.rpm, ARM64</span><span class="size"></span></a></li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="checksums">Release notes and SHA-256 checksums are on the <a href="https://github.com/Xyst69/tear/releases">releases page</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>tear is free and open source.</p>
+    <nav aria-label="Footer">
+      <a href="https://github.com/Xyst69/tear">Source code</a>
+      <a href="https://github.com/Xyst69/tear/issues">Report a problem</a>
+    </nav>
+  </footer>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
