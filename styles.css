@@ -374,7 +374,7 @@ h1, h2, h3 { margin: 0; text-wrap: balance; }
 
 /* Content sections ---------------------------------------------------- */
 
-.traits, .formats {
+.traits, .formats, .install {
   max-width: var(--max);
   margin: 0 auto;
   padding: clamp(48px, 7vw, 80px) var(--gutter);
@@ -384,7 +384,7 @@ h1, h2, h3 { margin: 0; text-wrap: balance; }
   gap: 24px 48px;
 }
 @media (min-width: 860px) {
-  .traits, .formats { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+  .traits, .formats, .install { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
 }
 
 h2 {
@@ -492,6 +492,62 @@ td.no { color: var(--muted); }
 .platform a.missing { color: var(--muted); }
 
 .checksums { margin: 32px 0 0; color: var(--muted); font-size: 0.9375rem; }
+
+.platform .planned {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 12px 0;
+  color: var(--muted);
+}
+
+/* Install steps -------------------------------------------------------- */
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
+  display: grid;
+  gap: 28px;
+}
+.steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  column-gap: 16px;
+}
+.steps li::before {
+  content: counter(step);
+  grid-row: 1 / span 2;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--tab-soft);
+  color: var(--tab);
+  font-weight: 700;
+  font-size: 0.9375rem;
+}
+.steps li > * { grid-column: 2; }
+.steps h3 { font-size: 1.0625rem; font-weight: 700; line-height: 32px; }
+.steps p { margin: 2px 0 0; color: var(--muted); max-width: 40em; }
+.steps strong { color: var(--ink); font-weight: 600; }
+
+code, kbd {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 0.875em;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  padding: 1px 5px;
+}
+
+.install-note { margin: 32px 0 0; color: var(--muted); font-size: 0.9375rem; }
+.install-note a { color: var(--ink); }
 
 /* Footer --------------------------------------------------------------- */
 

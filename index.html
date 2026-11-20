@@ -27,6 +27,7 @@
     <nav aria-label="Main">
       <a href="#formats">Formats</a>
       <a href="#download">Download</a>
+      <a href="#install">Install</a>
       <a href="https://github.com/Xyst69/tear">GitHub</a>
     </nav>
   </header>
@@ -35,12 +36,12 @@
     <section class="hero">
       <div class="hero-copy">
         <h1>Unpack anything from the right&#8209;click menu.</h1>
-        <p class="lede">tear opens and creates zip, 7z, rar and tar archives on Windows, macOS and Linux. It uses every core, writes files in parallel, and then gets out of your way.</p>
+        <p class="lede">Tear extracts zip, 7z, rar and tar archives straight from the Windows right-click menu. No ads, no pop-ups, and nothing left running in the background.</p>
         <div class="actions">
           <a class="btn btn-primary" id="primary-download" href="#download">Choose a download</a>
           <a class="btn btn-quiet" id="other-platforms" href="#download">Other platforms</a>
         </div>
-        <p class="primary-meta" id="primary-meta">Free and open source.</p>
+        <p class="primary-meta" id="primary-meta">Free preview for Windows 10 and 11. macOS and Linux are planned.</p>
       </div>
 
       <figure class="demo" id="demo">
@@ -79,7 +80,7 @@
                   <rect class="mark-strip" x="5" y="2.5" width="22" height="5" rx="1.5" transform="rotate(-9 16 5)"/>
                   <path class="mark-body" d="M4 13 l4 -3 l4 3 l4 -3 l4 3 l4 -3 l4 3 V27.5 a2.5 2.5 0 0 1 -2.5 2.5 H6.5 A2.5 2.5 0 0 1 4 27.5 Z"/>
                 </svg>
-                tear
+                Tear
               </div>
               <div class="sep"></div>
               <div class="item">Copy</div>
@@ -89,8 +90,7 @@
 
             <div class="menu menu-sub">
               <div class="item item-extract">Extract here</div>
-              <div class="item">Extract to "holiday-photos\"</div>
-              <div class="item">Open in tear</div>
+              <div class="item">Extract to new folder</div>
               <div class="item">Test archive</div>
             </div>
 
@@ -102,7 +102,7 @@
           </div>
         </div>
         <figcaption>
-          <span>Right-click, choose <strong>tear</strong>, then <strong>Extract here</strong>.</span>
+          <span>Right-click, choose <strong>Tear</strong>, then <strong>Extract here</strong>.</span>
           <button class="replay" id="replay" type="button" hidden>Replay</button>
         </figcaption>
       </figure>
@@ -116,16 +116,16 @@
           <dd>If the archive holds a single folder, you get that folder. If it holds loose files, they go into a new folder named after the archive. No more desktops full of stray files.</dd>
         </div>
         <div>
-          <dt>Uses every core</dt>
-          <dd>Zip and 7z entries are unpacked in parallel and files are written on background threads, so archives with thousands of small files finish in a fraction of the usual time.</dd>
+          <dt>Never overwrites your files</dt>
+          <dd>Extracting twice gives you a second folder, never a merge. Archives can't write outside the folder you extract into.</dd>
         </div>
         <div>
           <dt>Stays out of the way</dt>
-          <dd>No tray icon, no update pop-ups, no ads, no telemetry. A progress window appears only when a job takes longer than half a second.</dd>
+          <dd>No tray icon, no update pop-ups, no ads, no telemetry. A successful extraction shows no window at all; the folder just appears.</dd>
         </div>
         <div>
-          <dt>Same menu on every system</dt>
-          <dd>Explorer on Windows 10 and 11, Finder on macOS, and Nautilus, Dolphin, Nemo, Thunar and Caja on Linux.</dd>
+          <dt>Asks only when it has to</dt>
+          <dd>A password-protected archive gets one small password box. Type it wrong and the box stays open so you can try again.</dd>
         </div>
       </dl>
     </section>
@@ -138,11 +138,11 @@
             <tr><th scope="col">Format</th><th scope="col">Extract</th><th scope="col">Create</th></tr>
           </thead>
           <tbody>
-            <tr><th scope="row">zip</th><td class="yes">Yes</td><td class="yes">Yes, with AES-256</td></tr>
-            <tr><th scope="row">7z</th><td class="yes">Yes</td><td class="yes">Yes, with AES-256</td></tr>
-            <tr><th scope="row">rar</th><td class="yes">Yes</td><td class="no">No</td></tr>
-            <tr><th scope="row">tar, tar.gz, tar.xz, tar.zst, tar.bz2</th><td class="yes">Yes</td><td class="yes">Yes</td></tr>
-            <tr><th scope="row">gz, xz, zst, bz2</th><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+            <tr><th scope="row">zip</th><td class="yes">Yes, with passwords</td><td class="no">Planned</td></tr>
+            <tr><th scope="row">7z</th><td class="yes">Yes, with passwords</td><td class="no">Planned</td></tr>
+            <tr><th scope="row">rar, including multi-part</th><td class="yes">Yes, with passwords</td><td class="no">No</td></tr>
+            <tr><th scope="row">tar, tar.gz, tar.xz, tar.zst, tar.bz2</th><td class="yes">Yes</td><td class="no">Planned</td></tr>
+            <tr><th scope="row">gz, xz, zst, bz2</th><td class="yes">Yes</td><td class="no">Planned</td></tr>
           </tbody>
         </table>
       </div>
@@ -158,33 +158,53 @@
         <div class="platforms">
           <div class="platform" data-os="windows">
             <h3>Windows</h3>
-            <p class="req">Windows 10 and 11</p>
+            <p class="req">Windows 10 and 11, 64-bit</p>
             <ul>
-              <li><a data-asset="tear-windows-x64.msi" href="https://github.com/Xyst69/tear/releases/latest/download/tear-windows-x64.msi"><span>Installer, x64</span><span class="size"></span></a></li>
-              <li><a data-asset="tear-windows-arm64.msi" href="https://github.com/Xyst69/tear/releases/latest/download/tear-windows-arm64.msi"><span>Installer, ARM64</span><span class="size"></span></a></li>
+              <li><a data-asset="tear-windows-x64.zip" href="https://github.com/Xyst69/tear/releases"><span>Preview, x64 (.zip)</span><span class="size"></span></a></li>
             </ul>
           </div>
           <div class="platform" data-os="macos">
             <h3>macOS</h3>
             <p class="req">macOS 13 or later</p>
             <ul>
-              <li><a data-asset="tear-macos-universal.dmg" href="https://github.com/Xyst69/tear/releases/latest/download/tear-macos-universal.dmg"><span>Disk image, Apple silicon and Intel</span><span class="size"></span></a></li>
+              <li><span class="planned"><span>Disk image</span><span class="size">Planned</span></span></li>
             </ul>
           </div>
           <div class="platform" data-os="linux">
             <h3>Linux</h3>
             <p class="req">x64 and ARM64</p>
             <ul>
-              <li><a data-asset="tear-linux-x64.deb" href="https://github.com/Xyst69/tear/releases/latest/download/tear-linux-x64.deb"><span>.deb for Debian and Ubuntu, x64</span><span class="size"></span></a></li>
-              <li><a data-asset="tear-linux-x64.rpm" href="https://github.com/Xyst69/tear/releases/latest/download/tear-linux-x64.rpm"><span>.rpm for Fedora and openSUSE, x64</span><span class="size"></span></a></li>
-              <li><a data-asset="tear-linux-x64.AppImage" href="https://github.com/Xyst69/tear/releases/latest/download/tear-linux-x64.AppImage"><span>AppImage, x64</span><span class="size"></span></a></li>
-              <li><a data-asset="tear-linux-arm64.deb" href="https://github.com/Xyst69/tear/releases/latest/download/tear-linux-arm64.deb"><span>.deb, ARM64</span><span class="size"></span></a></li>
-              <li><a data-asset="tear-linux-arm64.rpm" href="https://github.com/Xyst69/tear/releases/latest/download/tear-linux-arm64.rpm"><span>.rpm, ARM64</span><span class="size"></span></a></li>
+              <li><span class="planned"><span>.deb, .rpm and AppImage</span><span class="size">Planned</span></span></li>
             </ul>
           </div>
         </div>
 
         <p class="checksums">Release notes and SHA-256 checksums are on the <a href="https://github.com/Xyst69/tear/releases">releases page</a>.</p>
+      </div>
+    </section>
+
+    <section class="install" id="install" aria-labelledby="install-title">
+      <h2 id="install-title">Install on Windows</h2>
+      <div class="install-body">
+        <ol class="steps">
+          <li>
+            <h3>Unblock the download</h3>
+            <p>Right-click <code>tear-windows-x64.zip</code>, choose <strong>Properties</strong>, tick <strong>Unblock</strong> at the bottom and click <strong>OK</strong>. Tear isn't code-signed yet, so Windows marks it as untrusted.</p>
+          </li>
+          <li>
+            <h3>Extract the zip</h3>
+            <p>Right-click it again and choose <strong>Extract All</strong>.</p>
+          </li>
+          <li>
+            <h3>Run Install.cmd</h3>
+            <p>Double-click <code>Install.cmd</code> in the extracted folder. If Windows shows <strong>Windows protected your PC</strong>, click <strong>More info</strong>, then <strong>Run anyway</strong>. It installs for your account only and needs no administrator rights.</p>
+          </li>
+          <li>
+            <h3>Right-click any archive</h3>
+            <p>Choose <strong>Tear</strong>, then <strong>Extract here</strong>. On Windows 11 it's under <strong>Show more options</strong>, or press <kbd>Shift</kbd>+<kbd>F10</kbd>.</p>
+          </li>
+        </ol>
+        <p class="install-note">To remove Tear, double-click <code>Uninstall.cmd</code>. The full guide, including terminal commands, is in <a href="https://github.com/Xyst69/tear/blob/main/INSTALL.md">INSTALL.md</a>.</p>
       </div>
     </section>
   </main>
