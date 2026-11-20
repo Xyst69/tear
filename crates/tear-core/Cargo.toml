@@ -1,0 +1,25 @@
+[package]
+name = "tear-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[features]
+default = ["rar"]
+rar = ["dep:unrar", "dep:unrar_sys"]
+
+[dependencies]
+
+zip={version="9",default-features=false,features=["aes-crypto","deflate-flate2-zlib-rs","deflate64","bzip2","lzma","xz","zstd"]}
+bzip2="0.6"
+flate2={version="1",default-features=false,features=["zlib-rs"]}
+tar="0.4"
+liblzma={version="0.4",default-features=false,features=["static","parallel"]}
+zstd={version="0.14",features=["zstdmt"]}
+sevenz-rust2={version="0.25",features=["deflate"]}
+unrar={version="0.5",optional=true}
+# Already used by `unrar`; called directly to stream large members (rar_stream.rs).
+unrar_sys={version="0.5",optional=true}
+
+windows-sys = { version = "0.61", features = ["Win32_Storage_FileSystem", "Win32_Foundation", "Win32_System_WindowsProgramming"] }

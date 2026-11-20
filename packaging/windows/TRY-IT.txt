@@ -1,0 +1,89 @@
+Tear for Windows: preview build
+===============================
+
+This is an early test build. It extracts zip, 7z, rar, tar, tar.gz, tar.xz,
+tar.bz2, tar.zst, gz, xz, bz2 and zst archives, and asks for the password when
+an archive is protected. Creating archives and the progress window come in
+later builds.
+
+
+Install (about a minute)
+------------------------
+
+1. If you downloaded or copied this folder as a .zip, right-click the .zip,
+   choose Properties, tick "Unblock" and press OK before extracting it.
+   Otherwise Windows may warn about the files because they aren't signed yet.
+
+2. Double-click Install.cmd. It installs for your user account only and needs
+   no administrator rights. If Windows SmartScreen appears, choose
+   "More info" and then "Run anyway".
+
+
+Try the right-click menu
+------------------------
+
+On Windows 11, right-click a file, then choose "Show more options"
+(or select the file and press Shift+F10). On Windows 10 the entry is in the
+normal menu.
+
+  Tear > Extract here
+         Extract to new folder
+         Test archive
+
+Try these with the files in the samples folder:
+
+  holiday-photos.zip      Extract here creates one "holiday-photos" folder,
+                          not a second folder wrapped around it.
+  loose-files.zip         Extract here puts the loose files inside a new
+                          "loose-files" folder instead of scattering them.
+  Extract twice           The second time you get "holiday-photos (2)".
+                          Nothing is ever merged or overwritten.
+  holiday-photos.7z       Same behaviour for 7z.
+  holiday-photos.tar.gz   Same behaviour for compressed tar.
+  Test archive            Shows a short "is OK" message.
+  secret-password-is-tear.zip
+                          Asks for the password (it's: tear). Try a wrong
+                          one first: the box stays open and says so.
+
+A successful extraction shows no window at all. The new folder just appears.
+
+
+Use it from a terminal
+----------------------
+
+Open a new PowerShell window after installing:
+
+  tear x .\samples\holiday-photos.zip            smart extract
+  tear x .\samples\loose-files.zip --folder      always into a new folder
+  tear x archive.zip -o D:\Somewhere             choose the destination
+  tear x .\samples\secret-password-is-tear.zip -p tear
+  tear l archive.7z                              list contents
+  tear t archive.rar                             verify without extracting
+  tear --help
+
+Exit codes: 0 ok, 1 some files damaged (the rest were extracted),
+2 bad input, 3 wrong or missing password.
+
+
+Safety
+------
+
+- Archives can't write outside the folder you extract into.
+- Files are never overwritten.
+- If the archive was downloaded from the internet, the extracted files keep
+  that marking, so Windows still warns before running a downloaded program.
+
+
+Remove it
+---------
+
+Double-click Uninstall.cmd (in this folder or in
+%LOCALAPPDATA%\Programs\tear). It removes the menu entries, the PATH entry
+and the installed files.
+
+
+Report a problem
+----------------
+
+Note what you clicked, the archive type, and the exact message you saw:
+https://github.com/Xyst69/tear/issues

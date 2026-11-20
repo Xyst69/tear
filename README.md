@@ -11,26 +11,36 @@
 Right-click any archive and choose **tear › Extract here**. The files appear immediately, with no splash screen, no pop-ups and nothing left running in the background.
 
 ```
-tear  ›  Extract here
-         Extract to "holiday-photos\"
-         Extract to…
-         Open in tear
+Tear  ›  Extract here
+         Extract to new folder
          Test archive
 ```
+
+## Install
+
+**[Download the Windows preview](https://github.com/Xyst69/tear/releases)**, then follow **[INSTALL.md](INSTALL.md)**. In short: unblock and extract the zip, run `Install.cmd`, then right-click any archive and choose **Tear** (on Windows 11, under "Show more options").
 
 ## Status
 
 tear is in early development. Nothing has been released yet. [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) is the full engineering plan: architecture, formats, performance targets, shell integration for each OS, and release pipeline.
 
+The Windows x64 preview extracts every format in the table below (creating archives comes later). It adds a per-user **tear** entry to File Explorer's classic right-click menu, which is under "Show more options" on Windows 11. Build a test package with:
+
+```powershell
+.\scripts\package-windows.ps1
+```
+
+This produces `dist\tear-windows-x64.zip` (and `dist\SHA256SUMS`) with `tear.exe`, `tearw.exe` (the same commands without a console window, used by the menu), `Install.cmd`, `Uninstall.cmd`, sample archives, and a step-by-step guide in `TRY-IT.txt`. See [CONTRIBUTING.md](CONTRIBUTING.md) for the build setup and verification commands.
+
 ## Formats
 
 | Format | Extract | Create |
 |---|---|---|
-| zip | Yes | Yes, with AES-256 |
-| 7z | Yes | Yes, with AES-256 |
-| rar | Yes | No |
-| tar, tar.gz, tar.xz, tar.zst, tar.bz2 | Yes | Yes |
-| gz, xz, zst, bz2 | Yes | Yes |
+| zip | Yes, including AES-256 passwords | Planned |
+| 7z | Yes, including AES-256 passwords | Planned |
+| rar (v4, v5, multi-part) | Yes, including passwords | No |
+| tar, tar.gz, tar.xz, tar.zst, tar.bz2 | Yes | Planned |
+| gz, xz, zst, bz2 | Yes | Planned |
 
 ## Website
 
@@ -53,5 +63,11 @@ python -m http.server 8000
 
 ```
 IMPLEMENTATION_PLAN.md   engineering plan
+crates/tear-core/        archive processing library
+crates/tear-cli/         tear.exe (console) and tearw.exe (no window)
+packaging/windows/       per-user installer, uninstaller, testing guide
+scripts/                 Windows build and packaging scripts
+tests/corpus/            archive fixture verification
+.github/workflows/       Windows CI
 website/                 download site (static HTML, CSS, JS)
 ```

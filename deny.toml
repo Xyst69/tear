@@ -1,0 +1,20 @@
+[advisories]
+yanked = "deny"
+
+[licenses]
+allow = ["MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "Zlib", "ISC", "Unicode-3.0", "MPL-2.0"]
+
+[bans]
+wildcards = "deny"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+[[licenses.exceptions]]
+crate = "libbz2-rs-sys@0.2.7"
+allow = ["bzip2-1.0.6"]
+
+[[licenses.exceptions]]
+crate = "ppmd-rust@1.5.2"
+allow = ["MIT-0"]
+

@@ -3,14 +3,9 @@
 
   const REPO = "Xyst69/tear";
   const RELEASES = `https://github.com/${REPO}/releases`;
+  const WINDOWS_ASSET = "tear-windows-x64.zip";
 
   /* ---------- Platform detection and primary button ---------- */
-
-  const PRIMARY = {
-    windows: { asset: "tear-windows-x64.msi", arm: "tear-windows-arm64.msi", label: "Download for Windows", meta: "Windows 10 and 11, 64-bit installer." },
-    macos:   { asset: "tear-macos-universal.dmg", label: "Download for macOS", meta: "macOS 13 or later, Apple silicon and Intel." },
-    linux:   { asset: "tear-linux-x64.deb", arm: "tear-linux-arm64.deb", label: "Download for Linux", meta: ".deb for Debian and Ubuntu. Other packages below." },
-  };
 
   function detectOS() {
     const ua = navigator.userAgent || "";
@@ -22,38 +17,19 @@
     return null;
   }
 
-  async function detectArm() {
-    try {
-      if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
-        const v = await navigator.userAgentData.getHighEntropyValues(["architecture"]);
-        return v.architecture === "arm";
-      }
-    } catch (_) { /* not available */ }
-    return /aarch64|arm64/i.test(navigator.userAgent || "");
-  }
-
   const os = detectOS();
   const primary = document.getElementById("primary-download");
   const primaryMeta = document.getElementById("primary-meta");
-  let primaryAsset = null;
 
-  function assetLink(name) {
-    return document.querySelector(`a[data-asset="${name}"]`);
-  }
-
-  function syncPrimary() {
-    if (!primaryAsset) return;
-    const link = assetLink(primaryAsset);
-    if (link) primary.href = link.href;
+  if (os === "windows") {
+    primary.textContent = "Download for Windows";
+    primaryMeta.textContent = "Free preview for Windows 10 and 11, 64-bit.";
+  } else {
+    primary.textContent = "Get the Windows preview";
+    primaryMeta.textContent = "Tear runs on Windows for now. macOS and Linux are planned.";
   }
 
   if (os) {
-    const p = PRIMARY[os];
-    primaryAsset = p.asset;
-    primary.textContent = p.label;
-    primaryMeta.textContent = p.meta;
-    syncPrimary();
-
     const column = document.querySelector(`.platform[data-os="${os}"] h3`);
     if (column) {
       const tag = document.createElement("span");
@@ -61,21 +37,16 @@
       tag.textContent = "Your system";
       column.appendChild(tag);
     }
-
-    if (p.arm) {
-      detectArm().then((isArm) => {
-        if (!isArm) return;
-        primaryAsset = p.arm;
-        primaryMeta.textContent = os === "windows" ? "Windows 11 on ARM installer." : ".deb for ARM64. Other packages below.";
-        syncPrimary();
-      });
-    }
   }
 
-  /* ---------- Latest release from GitHub ---------- */
+  function syncPrimary() {
+    const link = document.querySelector(`a[data-asset="${WINDOWS_ASSET}"]`);
+    if (link) primary.href = link.href;
+  }
+
+  /* ---------- Newest release from GitHub (previews included) ---------- */
 
   const status = document.getElementById("release-status");
-  const download = document.getElementById("download");
 
   function formatSize(bytes) {
     const mb = bytes / (1024 * 1024);
@@ -90,27 +61,30 @@
     }
   }
 
-  fetch(`https://api.github.com/repos/${REPO}/releases/latest`, { headers: { Accept: "application/vnd.github+json" } })
+  function showPending() {
+    status.textContent = "";
+    status.append("The first release hasn't been published yet. ");
+    const watch = document.createElement("a");
+    watch.href = `https://github.com/${REPO}`;
+    watch.textContent = "Watch the repository";
+    status.append(watch, " to hear when it is.");
+    document.querySelectorAll("a[data-asset]").forEach((a) => {
+      a.href = RELEASES;
+      a.querySelector(".size").textContent = "Not yet available";
+      a.classList.add("missing");
+    });
+  }
+
+  // /releases/latest skips pre-releases, so read the list and take the newest published one.
+  fetch(`https://api.github.com/repos/${REPO}/releases?per_page=10`, { headers: { Accept: "application/vnd.github+json" } })
     .then((res) => {
-      if (res.status === 404) return { none: true };
       if (!res.ok) throw new Error(String(res.status));
       return res.json();
     })
-    .then((release) => {
-      if (release.none) {
-        download.classList.add("pending");
-        status.innerHTML = "";
-        status.append("The first release hasn't been published yet. ");
-        const watch = document.createElement("a");
-        watch.href = `https://github.com/${REPO}`;
-        watch.textContent = "Watch the repository";
-        status.append(watch, " to hear when it is.");
-        document.querySelectorAll("a[data-asset]").forEach((a) => {
-          a.href = RELEASES;
-          a.querySelector(".size").textContent = "Not yet available";
-          a.classList.add("missing");
-        });
-        primary.href = "#download";
+    .then((list) => {
+      const release = (Array.isArray(list) ? list : []).find((r) => !r.draft);
+      if (!release) {
+        showPending();
         return;
       }
 
@@ -129,15 +103,16 @@
       });
       syncPrimary();
 
-      status.innerHTML = "";
+      status.textContent = "";
       const notes = document.createElement("a");
       notes.href = release.html_url || RELEASES;
-      notes.textContent = `Version ${String(release.tag_name || "").replace(/^v/, "")}`;
+      const version = String(release.tag_name || "").replace(/^v/, "");
+      notes.textContent = release.prerelease ? `Preview ${version}` : `Version ${version}`;
       const date = formatDate(release.published_at);
       status.append(notes, date ? `, released ${date}.` : ".");
     })
     .catch(() => {
-      /* Offline or rate-limited: the static /releases/latest/download/ links still work. */
+      /* Offline or rate-limited: links fall back to the releases page. */
     });
 
   /* ---------- Hero demo ---------- */
